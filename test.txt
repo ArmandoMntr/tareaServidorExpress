@@ -1,0 +1,20 @@
+[
+  {
+    "title": "Escuadra",
+    "price": 48,
+    "thumbnail": "https://image.shutterstock.com/image-photo/wooden-simple-classic-ruler-triangle-600w-1691594920.jpg",
+    "id": 1
+  },
+  {
+    "title": "Martillo",
+    "price": 128,
+    "thumbnail": "https://m.media-amazon.com/images/I/71aQtUldu+L._AC_SL1500_.jpg",
+    "id": 2
+  },
+  {
+    "title": "Silla",
+    "price": 354,
+    "thumbnail": "https://www.ikea.com/mx/es/images/products/lerhamn-silla-tinte-envejecido-claro-vittaryd-beige__0728161_pe736119_s5.jpg?f=s",
+    "id": 3
+  }
+]
