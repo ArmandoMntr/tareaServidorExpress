@@ -4,32 +4,31 @@ class Contenedor {
   constructor(filename) {
     this.filename = filename;
   }
-  // recieve a new object, save in the file and returns the id
   async save(data) {
     try {
-      let content = await fs.promises.readFile(this.filename, "utf-8");
-      if (content.length > 0) {
+      //try to read the content
+      let content = await fs.promises.readFile(this.filename, 'utf-8');
+      // if the file is not empty convert it to an object and append the data
+      // assing the id to the data to 1 + the last object in the array and write the file
+      //return the data.id
+      if(content.length > 0) {
         content = JSON.parse(content);
         content.push(data);
         data.id = content[content.length - 2].id + 1;
-        await fs.promises.writeFile(
-          this.filename,
-          JSON.stringify(content, null, 2)
-        );
-        return data.id;
-      } else {
-        content = [];
+        await fs.promises.writeFile(this.filename, JSON.stringify(content, null, 2));
+        return data.id
+      // if the file is empty but created, write the file with the data and
+      // assign the id 
+      } else if(content.length < 1) {
+        await fs.promises.writeFile(this.filename, data);
         data.id = 1;
-        content.push(data);
-        await fs.promises.writeFile(
-          this.filename,
-          JSON.stringify([data], null, 2),
-          "utf-8"
-        );
-        return data.id;
-      }
+        return data.id
+      } 
+      // if the file doesn't exist create it with the data within an array and return the id
     } catch (error) {
-      console.log(error);
+      data.id = 1;
+      await fs.promises.writeFile(this.filename, JSON.stringify([data], null, 2));
+      return data.id
     }
   }
 
@@ -119,10 +118,14 @@ class Contenedor {
       console.log(error);
     }
   }
-   random() {
-      let content = JSON.parse(fs.readFileSync(this.filename, 'utf-8'))
+  async getRandom() {
+    try {
+      let content = await fs.promises.readFile(this.filename, 'utf-8')
+      content = JSON.parse(content)
       return content[Math.floor(Math.random()*content.length)]
-    //   [Math.floor(Math.random()*content.length)]
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
